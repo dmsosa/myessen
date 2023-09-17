@@ -2,10 +2,12 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { FoodData } from './interface/FoodData'
+import { Card } from './components/cards/Card'
 
 function App() {
   const [count, setCount] = useState(0)
-
+  const data : FoodData[] = [];
   return (
     <>
       <div>
@@ -25,9 +27,13 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
+      <div className="cont">
+        {data.map(foodData => <Card name={foodData.name} kcal={foodData.kcal}/>)}
+      </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+    
     </>
   )
 }
