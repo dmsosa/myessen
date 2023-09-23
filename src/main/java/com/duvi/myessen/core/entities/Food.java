@@ -9,10 +9,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 
-@Getter
+
 @Table(name="leben")
 @Entity(name="leben")
 @EqualsAndHashCode(of = "id")
+@Getter
 public class Food {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id ;
     private String name;
