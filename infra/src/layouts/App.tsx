@@ -1,17 +1,24 @@
 import { useState } from 'react';
-import '../public/styles/App.scss';
-import Button from 'react-bootstrap/Button';
+import '../utils/App.scss';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {Home} from '../pages/home';
+import {Beispiel} from '../pages/beispiel';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card } from './components/cards/Card';
-import { Header } from './components/header/Header';
-import {useFoodData} from './hooks/useFoodData'
+import { Card } from '../components/cards/Card';
+import { Header } from '../components/header/Header';
+import {useFoodData} from '../hooks/useFoodData'
 
 function App() {
   const data = useFoodData();
-
   return (
     <>
+      <BrowserRouter basename={""}>
+        <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/beispiel" element={<Beispiel/>}/>
+        </Routes>
+      </BrowserRouter>
       <Container className='p-4 cnt'>
         <Header/>
       </Container>
