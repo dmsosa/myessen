@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class Food {
+
+    
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -26,5 +28,10 @@ public class Food {
 
     @Column(name = "kcal")
     private Long kcal;
+
+    public Food(String name, Long kcal) {
+        this.name = name;
+        this.kcal = kcal;
+    }
 
 }

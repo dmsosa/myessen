@@ -1,27 +1,28 @@
 package com.duvi.myessen.services.impl;
 
 import com.duvi.myessen.services.FoodService;
-import com.duvi.myessen.adapters.FoodRepository;
+import com.duvi.myessen.adapters.*;
 import com.duvi.myessen.domain.Food;
 import com.duvi.myessen.exception.FoodExistsException;
 import com.duvi.myessen.exception.FoodNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 
 
-
+@Service
 public class FoodServiceImpl implements FoodService {
-
+    private FoodGateway gateway;
     private FoodRepository repository;
 
     @Autowired
-    public FoodServiceImpl(FoodRepository repository) {
+    public FoodServiceImpl(FoodRepository repository, FoodGateway gateway) {
         this.repository = repository;
+        this.gateway = gateway;
     }
 
     @Override
@@ -54,6 +55,11 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Food getFoodByName(String name) throws FoodNotFoundException {
-            
+            Optional<Food> food = this.gateway.getFoodByName(name);
+            if (food.isPresent()) {
+                return food.get();
+            } else {
+                throw new FoodNotFoundException(name + " was not found!!");
+            }
     }
 }
