@@ -7,29 +7,37 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.cdimascio.dotenv.Dotenv;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.http.HttpHeaders;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Repository
 public class FoodEdamam  implements FoodGateway {
-    // //dotev to use .env variables
-    // private static Dotenv dotenv = Dotenv.load();
-    // //using .env variables
-    // private static String APP_ID = dotenv.get("APP_ID");
-    // private static String API_KEY = dotenv.get("API_KEY");
-    // private static String API_URL = dotenv.get("API_URL");
-    private static HttpClient client = HttpClient.newHttpClient();
+    //importing dotenv to use .env variables
+    private static Dotenv dotenv = Dotenv.configure().directory("./server").load();
+    //using .env variables
+    private static String APP_ID = "33252eb3";
+    private static String API_KEY = "f5148fc312d4430ece92f86f9ae27e01";
+    private static String API_URL = dotenv.get("API_URL");
+    //query params
+    
+    
+    
+
+
+    private WebClient client = WebClient.create();
     //parsing response to Food object using Jackson
     private static Optional<Food> parseResults(byte[] results) {
         Food food = new Food();
@@ -60,20 +68,20 @@ public class FoodEdamam  implements FoodGateway {
         return opt;
 } 
     public Optional<Food> getFoodByName(String name) {
-        // String query = String.format("?app_id=%1$s&api_key=%2$s&ingr=%3$s", APP_ID, API_KEY, name);
-        URI uri = URI.create("https://api.edamam.com/api/food-database/v2/parser?app_id=33252eb3&app_key=f5148fc312d4430ece92f86f9ae27e01&ingr="+name);
-        HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
-        try {
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            byte[] results = response.body();
-            Optional<Food> food = parseResults(results);
-            return food;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
+        System.out.print(APP_ID+" "+API_KEY);
+        String query = "?app_id="+APP_ID+"&api_key="+API_KEY+"&ingr="+name;
+        UriComponentsBuilder builder = UriComponentsBuilder
+        .fromUriString(API_URL)
+        .queryParam("app_id", APP_ID)
+        .queryParam("api_key",API_KEY)
+        .queryParam("ingr", name);
+        URI uri = builder.build().toUri();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        ResponseEntity<byte[]> response = client.get().uri(uri).headers((f) -> f.addAll(headers)).retrieve().toEntity(byte[].class).block();
+        byte[] body = response.getBody();
+        Optional<Food> food = parseResults(body);
+        return food;
+
     };
 }

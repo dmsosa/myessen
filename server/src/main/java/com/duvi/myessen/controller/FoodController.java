@@ -22,9 +22,15 @@ public class FoodController {
 
     @GetMapping("/food/{name}")
     public FoodDTO getFood(@PathVariable String name)   {
+        System.out.println(name);
         Food food = service.getFoodByName(name);
         FoodDTO foodTransferObject = new FoodDTO(food);
         System.out.print(food.toString());
         return foodTransferObject;
+    }
+
+    @GetMapping("/")
+    public void NotFound() {
+        System.out.print("Not Found");
     }
 }
