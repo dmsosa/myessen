@@ -1,8 +1,8 @@
 package com.duvi.myessen.services;
 
 import com.duvi.myessen.domain.Food;
-import com.duvi.myessen.exception.FoodExistsException;
-import com.duvi.myessen.exception.FoodNotFoundException;
+import com.duvi.myessen.exception.food.FoodExistsException;
+import com.duvi.myessen.exception.food.FoodNotFoundException;
 
 import java.util.List;
 

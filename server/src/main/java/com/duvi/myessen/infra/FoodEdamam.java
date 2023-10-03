@@ -2,6 +2,7 @@ package com.duvi.myessen.infra;
 
 import com.duvi.myessen.adapters.FoodGateway;
 import com.duvi.myessen.domain.Food;
+import com.duvi.myessen.exception.food.FoodNotFoundException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -57,6 +58,8 @@ public class FoodEdamam  implements FoodGateway {
             foodData.put("kcal", foodKcal);
             food.setName(foodName);
             food.setKcal(Long.parseLong(foodKcal));
+        } else {
+            return Optional.empty();
         }
         } catch (StreamReadException exception ){
             exception.printStackTrace();
@@ -67,7 +70,7 @@ public class FoodEdamam  implements FoodGateway {
         }
         return opt;
 } 
-    public Optional<Food> getFoodByName(String name) {
+    public Optional<Food> getFoodByName(String name) throws FoodNotFoundException {
         System.out.print(APP_ID+" "+API_KEY);
         String query = "?app_id="+APP_ID+"&api_key="+API_KEY+"&ingr="+name;
         UriComponentsBuilder builder = UriComponentsBuilder
@@ -81,7 +84,11 @@ public class FoodEdamam  implements FoodGateway {
         ResponseEntity<byte[]> response = client.get().uri(uri).headers((f) -> f.addAll(headers)).retrieve().toEntity(byte[].class).block();
         byte[] body = response.getBody();
         Optional<Food> food = parseResults(body);
-        return food;
+        if (food.isPresent()) {
+            return food;
+        } else {
+            return Optional.empty();
+        }
 
     };
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duvi.myessen.domain.Food;
-import com.duvi.myessen.domain.FoodDTO;
+import com.duvi.myessen.domain.transfer.FoodDTO;
 import com.duvi.myessen.services.FoodService;
 
 

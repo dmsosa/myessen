@@ -1,10 +1,11 @@
 package com.duvi.myessen.services.impl;
 
 import com.duvi.myessen.services.FoodService;
-import com.duvi.myessen.adapters.*;
+import com.duvi.myessen.adapters.FoodGateway;
+import com.duvi.myessen.adapters.FoodRepository;
 import com.duvi.myessen.domain.Food;
-import com.duvi.myessen.exception.FoodExistsException;
-import com.duvi.myessen.exception.FoodNotFoundException;
+import com.duvi.myessen.exception.food.FoodExistsException;
+import com.duvi.myessen.exception.food.FoodNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
