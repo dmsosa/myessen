@@ -26,6 +26,7 @@ import java.util.Map;
 
 @Repository
 public class FoodEdamam  implements FoodGateway {
+
     //importing dotenv to use .env variables
     private static Dotenv dotenv = Dotenv.configure().directory("./server").load();
     //using .env variables
