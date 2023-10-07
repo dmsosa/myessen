@@ -3,7 +3,7 @@ package com.duvi.myessen.services.impl;
 import com.duvi.myessen.services.FoodService;
 import com.duvi.myessen.adapters.FoodGateway;
 import com.duvi.myessen.adapters.FoodRepository;
-import com.duvi.myessen.domain.Food;
+import com.duvi.myessen.domain.food.Food;
 import com.duvi.myessen.exception.food.FoodExistsException;
 import com.duvi.myessen.exception.food.FoodNotFoundException;
 

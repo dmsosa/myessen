@@ -1,6 +1,6 @@
 package com.duvi.myessen.services;
 
-import com.duvi.myessen.domain.Food;
+import com.duvi.myessen.domain.food.Food;
 import com.duvi.myessen.exception.food.FoodExistsException;
 import com.duvi.myessen.exception.food.FoodNotFoundException;
 

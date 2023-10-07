@@ -1,4 +1,4 @@
-package com.duvi.myessen.domain;
+package com.duvi.myessen.domain.food;
 
 
 import jakarta.persistence.Column;
@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,12 +20,14 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 
 
-@Entity
+
 @Table(name = "leben")
-@AllArgsConstructor
-@Data
-@NoArgsConstructor
+@Entity(name = "leben")
 @Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Food {
 
     

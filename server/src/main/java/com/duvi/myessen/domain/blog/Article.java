@@ -1,4 +1,4 @@
-package com.duvi.myessen.domain;
+package com.duvi.myessen.domain.blog;
 
 import java.util.Date;
 

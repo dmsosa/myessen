@@ -1,6 +1,6 @@
 package com.duvi.myessen.domain.transfer;
 
-import com.duvi.myessen.domain.Food;
+import com.duvi.myessen.domain.food.Food;
 
 public record FoodDTO(Long id, String name, Long kcal) {
     public FoodDTO(Food food) {
