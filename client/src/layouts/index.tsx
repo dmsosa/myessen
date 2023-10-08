@@ -4,8 +4,8 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import "../utils/index.scss";
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import HomeArticles from "../routes/HomeArticles";
 import Home from "../routes/Home";
+import Login from "../routes/Login";
 
 
 const queryClient = new QueryClient();
@@ -15,9 +15,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <HashRouter>
         <Routes>
           <Route element={<App />}>
-            <Route path="/" element={<Home />}>
-              <Route index element={<HomeArticles />}/>
-            </Route>
+            <Route path="/" element={<Login />}/>
+            <Route path="/login" element={<Home />}/>
           </Route>
         </Routes>
       </HashRouter>

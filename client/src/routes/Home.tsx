@@ -8,7 +8,7 @@ export const Home = () => {
                 <p>
                     Genau dass richtiges
                 </p>
-                <button className="btn btn-success">Grun</button>
+                <button className="btn btn-success">Greun</button>
             </div>
             <div className="container">
                 <h2>Was ist los?</h2>
