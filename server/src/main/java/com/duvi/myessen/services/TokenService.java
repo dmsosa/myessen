@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -14,8 +15,10 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.duvi.myessen.domain.users.User;
 
+
+@Service
 public class TokenService {
-    
+
     @Value("${api.security.token.secret}")
     private String secret;
 
@@ -25,6 +28,7 @@ public class TokenService {
             String token = JWT.create()
             .withIssuer("myessen")
             .withSubject(user.getUsername())
+            .withClaim("email", user.getEmail())
             .withExpiresAt(generateExpirationDate())
             .sign(algorithm);
             return token;

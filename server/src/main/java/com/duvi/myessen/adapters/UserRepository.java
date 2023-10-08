@@ -9,4 +9,5 @@ import com.duvi.myessen.domain.users.User;
 public interface UserRepository extends JpaRepository<User, String>{
     boolean existsByUsername(String name);
     UserDetails findUserByEmail(String email);
+    UserDetails findUserByUsername(String username);
 }

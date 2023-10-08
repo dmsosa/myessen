@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.duvi.myessen.adapters.UserRepository;
 import com.duvi.myessen.domain.transfer.AuthorizationDTO;
+import com.duvi.myessen.domain.transfer.LoginResponseDTO;
 import com.duvi.myessen.domain.transfer.RegisterDTO;
 import com.duvi.myessen.domain.users.User;
+import com.duvi.myessen.services.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -21,16 +23,23 @@ import jakarta.validation.Valid;
 @RequestMapping("auth")
 public class AuthorizationController {
 
+
     @Autowired
     AuthenticationManager authenticationManager;
+
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthorizationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+        
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
