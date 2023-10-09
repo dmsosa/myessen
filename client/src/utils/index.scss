@@ -1,8 +1,30 @@
+@mixin text-styles($size, $style, $color) {
+    font-family:'consolas';
+    size: $size;
+    font-style: $style;
+    color:$color;
+
+  }
+
 body {
     margin: 0;
     padding: 0;
     background-color: magenta;
-    color:blue;
+    font-family: 'consolas';
+}
+.footer {
+    color: white;
+}
+.footer-icon-row {
+    max-width: 80%;
+    margin: 1em auto;
+}
+.footer-p {
+    margin:1em auto;
+}
+.footer-ul {
+    list-style: none;
+    margin-top: 1em;
 }
 .espiral {
     color:yellow;
@@ -18,4 +40,40 @@ body {
 
 .logo {
     width: 5em;
+}
+
+.abo-item {
+    font-size: 0.8em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+.abo-label {
+    display: block;
+    font-size: 1em;
+    text-align: left;
+    padding-left: 1em;
+    margin: 0;
+}
+.btn-info {
+    font-size: 1em;
+    color: black;
+
+}
+
+.abo-input {
+
+    width: 100%;
+}
+
+.abo-form {
+    display: flex;
+    
+}
+.copyright {
+    background-color: hsl(225, 25, 10);
+    padding: 0.5em;
+
+}
+.copyright-text {
+    font-size:1em;
 }

@@ -1,56 +1,37 @@
-import { createContext, useContext, useEffect, useState } from "react";
-<<<<<<< HEAD
-import getUser from 
+// import { createContext, useContext, useEffect, useState } from "react";
 
-const AuthContext = createContext('loggedOff');
+// const AuthContext = createContext('loggedOut');
 
-export function useAuth() {
-    return useContext(AuthContext);
-}
+// function useAuth() {
+//     return useContext(AuthContext);
+// }
 
-const logged = localStorage.getItem("loggedUser");
-const loggedIn = logged ? JSON.parse(logged): null;
-=======
+// const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
 
-const AuthContext = createContext('loggedOut');
+// const authState = {
+//     headers: null,
+//     isAuth: false,
+//     loggedUser: {
+//         bio: null,
+//         email: "",
+//         image: null,
+//         token: "",
+//         username: "",
+//     },
+// };
 
-function useAuth() {
-    return useContext(AuthContext);
-}
+// function AuthProvider({children}) {
+//     const [{ headers, isAuth, loggedUser }, setAuthState] = useState( loggedIn || authState, );
 
-const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
+//     useEffect(() => {
+//         if (!headers) return;
 
->>>>>>> 5f657b476f182ddde67724bea566a754676bf3df
-const authState = {
-    headers: null,
-    isAuth: false,
-    loggedUser: {
-        bio: null,
-        email: "",
-        image: null,
-        token: "",
-        username: "",
-    },
-<<<<<<< HEAD
-}
+//         getUser
+//     })
 
-
-=======
-};
-
-function AuthProvider({children}) {
-    const [{ headers, isAuth, loggedUser }, setAuthState] = useState( loggedIn || authState, );
-
-    useEffect(() => {
-        if (!headers) return;
-
-        getUser
-    })
-
-    return (
-    <AuthContext.Provider value={}>
-        {children}
-    </AuthContext.Provider>
-    )
-}
->>>>>>> 5f657b476f182ddde67724bea566a754676bf3df
+//     return (
+//     <AuthContext.Provider value={}>
+//         {children}
+//     </AuthContext.Provider>
+//     )
+// }
