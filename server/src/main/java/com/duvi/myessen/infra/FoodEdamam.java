@@ -8,13 +8,6 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.cdimascio.dotenv.Dotenv;
-<<<<<<< HEAD
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-=======
->>>>>>> 5f657b476f182ddde67724bea566a754676bf3df
-
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
