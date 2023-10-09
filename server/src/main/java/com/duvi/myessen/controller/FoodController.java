@@ -49,6 +49,7 @@ public class FoodController {
 
     @GetMapping
     public List<Food> getAll() {
+        System.out.print("yoAAAA###");
         return this.service.getFoods();
     }
 

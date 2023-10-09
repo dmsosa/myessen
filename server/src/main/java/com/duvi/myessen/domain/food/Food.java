@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.URL;
 
 
 @Table(name = "leben")
-@Entity(name = "leben")
+@Entity(name = "food")
 @Getter
 @Data
 @AllArgsConstructor
