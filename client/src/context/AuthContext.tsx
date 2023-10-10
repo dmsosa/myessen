@@ -1,37 +1,37 @@
-// import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-// const AuthContext = createContext('loggedOut');
+const AuthContext = createContext('loggedOut');
 
-// function useAuth() {
-//     return useContext(AuthContext);
-// }
+function useAuth() {
+    return useContext(AuthContext);
+}
 
-// const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
+const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
 
-// const authState = {
-//     headers: null,
-//     isAuth: false,
-//     loggedUser: {
-//         bio: null,
-//         email: "",
-//         image: null,
-//         token: "",
-//         username: "",
-//     },
-// };
+const authState = {
+    headers: null,
+    isAuth: false,
+    loggedUser: {
+        bio: null,
+        email: "",
+        image: null,
+        token: "",
+        username: "",
+    },
+};
 
-// function AuthProvider({children}) {
-//     const [{ headers, isAuth, loggedUser }, setAuthState] = useState( loggedIn || authState, );
+function AuthProvider({children}) {
+    const [{ headers, isAuth, loggedUser }, setAuthState] = useState( loggedIn || authState, );
 
-//     useEffect(() => {
-//         if (!headers) return;
+    useEffect(() => {
+        if (!headers) return;
 
-//         getUser
-//     })
+        getUser
+    })
 
-//     return (
-//     <AuthContext.Provider value={}>
-//         {children}
-//     </AuthContext.Provider>
-//     )
-// }
+    return (
+    <AuthContext.Provider value={}>
+        {children}
+    </AuthContext.Provider>
+    )
+}

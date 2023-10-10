@@ -44,11 +44,16 @@ public class AuthorizationController {
         if (user == null) {
             return ResponseEntity.badRequest().body("KEIN BENUTZER\n BITTE REGISTIEREN SIE");
         }
+        User foundUser = this.repository.findUserByUsername(user.getUsername());
+        UserDTO userDTO = foundUser.toUserDTO();
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
+        if (!auth.isAuthenticated()) {
+            return ResponseEntity.badRequest().body("FEHLER\n FALSCHES PASSWORT");
+        }
         var token = tokenService.generateToken((User) auth.getPrincipal());
         
-        return ResponseEntity.ok(new LoginResponseDTO(token, user));
+        return ResponseEntity.ok(new LoginResponseDTO(token, userDTO));
     }
 
     @PostMapping("/register")
