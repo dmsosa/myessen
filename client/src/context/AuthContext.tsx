@@ -1,10 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const AuthContext = createContext('loggedOut');
-
-function useAuth() {
-    return useContext(AuthContext);
-}
+const AuthContext = createContext(null);
 
 const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
 
@@ -12,26 +8,21 @@ const authState = {
     headers: null,
     isAuth: false,
     loggedUser: {
-        bio: null,
-        email: "",
-        image: null,
-        token: "",
+        id: "",
         username: "",
-    },
-};
+        email: "",
+        bio: "",
+        password: ""
+    }
+}
 
-function AuthProvider({children}) {
-    const [{ headers, isAuth, loggedUser }, setAuthState] = useState( loggedIn || authState, );
+export function AuthContextProvider({ children }) {
 
-    useEffect(() => {
-        if (!headers) return;
-
-        getUser
-    })
+    const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( loggedIn || authState );
 
     return (
-    <AuthContext.Provider value={}>
-        {children}
-    </AuthContext.Provider>
+        <AuthContext.Provider value="null">
+            {children}
+        </AuthContext.Provider>
     )
 }

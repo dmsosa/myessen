@@ -1,9 +1,11 @@
 import axios, { AxiosPromise, AxiosRequestHeaders, AxiosResponse } from "axios";
-import { LoggedResponse } from "../interface/loggedResponse";
+import { LoggedResponse } from "../types/loggedResponse";
 import handleAxiosError from "../helpers/handleAxiosError";
 
 async function getUser({ headers }: { headers:AxiosRequestHeaders }): Promise<LoggedResponse> {
-   return await axios({ headers, url: "api/user"} )
-   .then((res) => (res.data))
-   .catch((err) => {handleAxiosError(err)})
+   try {
+      await axios({ headers, url: "api/user"} )
+   } catch (error) {
+      
+   }
 }

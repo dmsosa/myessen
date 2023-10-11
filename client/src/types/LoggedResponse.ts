@@ -1,6 +1,6 @@
 import { LoginResponse } from "./LoginResponse";
 
-export interface LoggedResponse {
+export type LoggedResponse = {
     headers: object,
     isAuth: boolean,
     loggedUser: LoginResponse
