@@ -2,7 +2,7 @@ import axios, { AxiosPromise, AxiosResponse } from "axios";
 import errorHandlerForAxios from "../helpers/handleAxiosError";
 
 import { LoginResponse } from "../types/LoginResponse";
-import { LoggedResponse } from "../types/loggedResponse";
+import { LoggedResponse } from "../types/TAuthState";
 import { User } from "../types/User";
 
 async function userLogin({email, password}: {email:string, password:string}): AxiosPromise<LoggedResponse> {

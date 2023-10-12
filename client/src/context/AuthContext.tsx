@@ -1,10 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { getUser } from "../services/getUser";
+import { AxiosHeaders } from "axios";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext({});
 
-const loggedIn = JSON.parse(localStorage.getItem("loggedUser"));
+//type of children
+type TChildren = {
+    children: JSX.Element | JSX.Element[];
+}
 
-const authState = {
+var authState = {
     headers: null,
     isAuth: false,
     loggedUser: {
@@ -16,13 +21,23 @@ const authState = {
     }
 }
 
-export function AuthContextProvider({ children }) {
+const loggedIn: string | null = localStorage.getItem("loggedUser")
 
-    const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( loggedIn || authState );
+if (loggedIn) {
+    authState.loggedUser = JSON.parse(loggedIn)
+}
+
+export function AuthContextProvider({ children }: TChildren) {
+
+    const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( authState );
+
+    useEffect( () => {
+        getUser({headers})
+    }, [headers, setAuthState]);
 
     return (
-        <AuthContext.Provider value="null">
-            {children}
+        <AuthContext.Provider value={ {headers, isAuth, loggedUser, setAuthState} }>
+            { children }
         </AuthContext.Provider>
     )
 }

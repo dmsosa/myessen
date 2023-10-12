@@ -31,6 +31,6 @@ public class UserController {
         String token = headers.get("Authentication");
         token = token.replace("Bearer ", "");
         UserDTO user = this.repository.findUserByUsername(username).toUserDTO();
-        JSON 
+        return ResponseEntity.ok(new LoginResponseDTO(token, user));
     }
 }
