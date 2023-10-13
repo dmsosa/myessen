@@ -2,7 +2,7 @@ import { AxiosHeaders } from "axios";
 import { User } from "./User";
 
 export type TAuthState = {
-    headers: AxiosHeaders | null,
+    headers: object | null,
     isAuth: boolean,
     loggedUser: User
 }

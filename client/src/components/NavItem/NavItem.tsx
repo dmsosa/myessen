@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-localStorage.
-function MyEssen({ icon, text, url, state }) {
-    const activeClass = ({ isActive }) => { `nav-link ${ isActive ? "active":""}` };
+
+function NavItem({ icon, text, url, state }: { icon?: any, text?: string, url?: string, state?: any }) {
+    const activeClass = ({ isActive }: { isActive:boolean }) => { return `nav-link ${ isActive ? "active":""}` };
     return (
         <li className="nav-item">
-            <NavLink className={activeClass} end state={state} to={url}>
-                {icon && <i className={icon}></i>} {text}
+            <NavLink className={activeClass} end state={state ? state : ""} to={url ? url : ""}>
+                {icon && <i className={icon}></i>} {text ? text : "GenERIKE"}
             </NavLink>
         </li>
     )
