@@ -1,43 +1,48 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { getUser } from "../services/getUser";
-import { AxiosHeaders } from "axios";
+import { TAuthState, TAuthContext } from "../types/AuthTypes";
+import { TChildren } from "../types/Children";
 
-const AuthContext = createContext({});
+const AuthContext = createContext< TAuthContext | null >( null );
 
-//type of children
-type TChildren = {
-    children: JSX.Element | JSX.Element[];
+export function useAuth() {
+    return useContext(AuthContext);
 }
 
-var authState = {
+var authState: TAuthState = {
     headers: null,
     isAuth: false,
     loggedUser: {
         id: "",
-        username: "",
+        username: "gener",
         email: "",
         bio: "",
         password: ""
     }
 }
-
 const loggedIn: string | null = localStorage.getItem("loggedUser")
 
 if (loggedIn) {
-    authState.loggedUser = JSON.parse(loggedIn)
+    authState = JSON.parse(loggedIn)
 }
 
-export function AuthContextProvider({ children }: TChildren) {
+export function AuthProvider({ children }: TChildren) {
 
     const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( authState );
 
     useEffect( () => {
-        getUser({headers})
+        if (!headers) { return };
+
+        getUser({ headers }).then((loggedUser) => 
+            setAuthState((prev) => ({...prev, loggedUser}))
+        ) //token senden, loggedUser erhalten
     }, [headers, setAuthState]);
 
     return (
-        <AuthContext.Provider value={ {headers, isAuth, loggedUser, setAuthState} }>
-            { children }
+        <AuthContext.Provider value={{ authState, setAuthState }}>
+            {children} 
         </AuthContext.Provider>
-    )
+    );
 }
+
+export default AuthProvider;

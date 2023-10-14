@@ -1,19 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { AuthContextProvider } from "../context/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 import App from "./App";
 import "../utils/index.scss";
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import Home from "../routes/Home";
 import Login from "../routes/Login";
+import ThemeProvider from "../context/ThemeContext";
 
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
-      <AuthContextProvider>
+      <ThemeProvider>
+      <AuthProvider>
         <HashRouter>
           <Routes>
             <Route element={<App />}>
@@ -22,7 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             </Route>
           </Routes>
         </HashRouter>
-      </AuthContextProvider>
+      </AuthProvider>
+      </ThemeProvider>
     </React.StrictMode>
   </QueryClientProvider>,
 )

@@ -1,4 +1,4 @@
-import avatar from "../../../public/peach.png";
+import avatar from "../../utils/assets/peach.png";
 
 function Avatar({ alt, className, src } : {alt?: string, className?: string, src?: string}) {
     return (

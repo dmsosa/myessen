@@ -1,12 +1,15 @@
 import { useState } from "react"
+import { useAuth } from "../../context/AuthContext";
 import Avatar from "../Avatar";
 import DropdownItem from "./DropdownItem";
+//Icons & Assets
 import { FaBeer } from "react-icons/fa"
 
 function DropdownMenu() {
     const [dropdown, setDropdown] = useState(false);
-    // const [loggedUser, setAuthState] = useAuth();
-    // const { username, image } =  loggedUser || {} ;
+    const  context  = useAuth();
+    const loggedUser = context?.authState.loggedUser;
+    const setAuthState = context?.setAuthState;
 
     const logout = () => {
         //logoutFunction
@@ -19,8 +22,8 @@ function DropdownMenu() {
     return (
         <li className="nav-item dropdown">
             <div className="user-pic-div">
-                <Avatar alt="username" />
-                {"username"}
+                <Avatar alt={loggedUser ? loggedUser.username : "nonuser"} />
+                {loggedUser ? loggedUser.username : "nonuser"}
             </div>
             <div 
             className="nav-link dropdown-toggle cursor-pointer"
@@ -36,10 +39,10 @@ function DropdownMenu() {
                 <DropdownItem
                     icon={<FaBeer />}
                     text="Profile"
-                    url={`/profile/username`}
-                    state={"loggedOut"}
+                    url={`/profile/${loggedUser? loggedUser.username : "nonuser"}`}
+                    state={context?.authState.isAuth ? "loggedIn":"loggedOut"}
                     />
-                    <div className="dropdown divider"><hr></hr></div>
+                <div className="dropdown divider"><hr></hr></div>
                 <DropdownItem icon={<FaBeer />} text="Settings" url="/settings" addClass="settings"/>
                 <div className="dropdown divider"><hr></hr></div>
                 <DropdownItem icon={<FaBeer />} text="Logout" url="#"  handler={logout} addClass="logout"/>

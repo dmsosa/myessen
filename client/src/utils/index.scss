@@ -1,18 +1,10 @@
-@mixin text-styles($size, $style, $color) {
-    font-family:'consolas';
-    size: $size;
-    font-style: $style;
-    color:$color;
-
-  }
+@import "./theme-variables.scss";
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: magenta;
-    font-family: 'consolas';
+    @include themify($themes) {
+        background-color: themed("headerFooterBackground");
+    }
 }
-
 .user-avatar {
     width: 1em;
 }
@@ -78,7 +70,8 @@ body {
     
 }
 .copyright {
-    background-color: hsl(225, 25, 10);
+    background-color: hsl(225, 7%, 28%);
+    
     padding: 0.5em;
 
 }
