@@ -2,35 +2,49 @@ import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import SourceCodeLink from "../SourceCodeLink";
 import DropdownMenu from "./DropdownMenu";
-import { useTheme } from "../../context/ThemeContext";
-import { ThemeContextType } from "../../types/ThemeTypes";
-
+import { ThemeContextType, useTheme } from "../../context/ThemeContext";
+import { useAuth } from "../../context/AuthContext";
+import { TAuthContext } from "../../types/TAuthTypes";
+import { CiAvocado } from "react-icons/ci";
 
 function Navbar() {
     const {theme, setTheme} = useTheme() as ThemeContextType;
-    const handleChange = () => {
-
-        if (theme === "light") {
-            setTheme("dark");
-        } else {
-            setTheme("light");
-        }
+    const { authState } = useAuth() as TAuthContext;
+    const { isAuth } = authState;
+    const handleTheme = () => {
+        const isCurrentDark = theme === "dark";
+        setTheme( isCurrentDark ? "light" : "dark" );
+        localStorage.setItem("default-theme3e", isCurrentDark ? "light" : "dark" );
     }
 
     return (
-        <nav className="navbar navbar-light">
+        <nav className="navbar theme-dark">
             <div className="container">
                 <Link className="navbar-brand" to="/">
                     MyEssen
                 </Link>
                 <SourceCodeLink left/>
-                <input type="checkbox" id="dark" data-theme={theme} onClick={handleChange}/><label>{theme}</label>
-                <ul className="nav navbar-nav pull-xs-right">
+                {isAuth && (<>
+                <NavItem text="New Article" icon={<CiAvocado />} url="/"/>
+                <DropdownMenu />
+                </>)}
+                {!isAuth && (<ul className="nav navbar-nav pull-xs-right">
                     <NavItem text="Home" icon="fa-solid fa-car" url="/"/>
                     <NavItem text="LogIn" icon="fa-solid fa-user" url="/login"/>
-    
-                </ul>
-                <DropdownMenu />
+                </ul>)}
+
+                
+                <div className="switcher-area">
+                    <div className="switcher">
+                        <input 
+                        className="switcher-checkbox" 
+                        type="checkbox" 
+                        checked={theme === "dark"}
+                        readOnly
+                        />
+                        <button className="switcher-btn" onClick={handleTheme}>Switch</button>
+                    </div>
+                </div>
             </div>
         </nav>
     );

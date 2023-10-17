@@ -1,8 +1,16 @@
 @import "./theme-variables.scss";
 
 body {
+    margin: 0;
+    padding: 0;
+    background-color: #ccc;
+    font-family: 'consolas';
+    
+}
+
+.navbar {
     @include themify($themes) {
-        background-color: themed("headerFooterBackground");
+        background-color: themed('colorText');
     }
 }
 .user-avatar {

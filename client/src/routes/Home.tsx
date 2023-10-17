@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import LogoutButton from "../components/Logout/logoutButton";
 
 export const Home = () => {
     return (
@@ -13,6 +14,7 @@ export const Home = () => {
             <div className="container">
                 <h2>Was ist los?</h2>
                 <Outlet/>
+                <LogoutButton></LogoutButton>
             </div>
         </>
     )

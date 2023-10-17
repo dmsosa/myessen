@@ -47,7 +47,7 @@ public class TokenService {
             .build();
 
             decodedJWT = verifier.verify(token);
-            return decodedJWT.getSubject();
+            return decodedJWT.getClaim("email").asString();
 
         } catch (JWTVerificationException exception) {
             return "";

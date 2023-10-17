@@ -49,7 +49,7 @@ public class AuthorizationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         if (!auth.isAuthenticated()) {
-            return ResponseEntity.badRequest().body("FEHLER\n FALSCHES PASSWORT");
+            return ResponseEntity.badRequest().body("FEHLER\n FALSCHES EMAIL/PASSWORT");
         }
         var token = tokenService.generateToken((User) auth.getPrincipal());
         

@@ -1,20 +1,27 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { ReactNode, createContext, useContext, useState, useEffect } from "react";
 import { getUser } from "../services/getUser";
-import { TAuthState, TAuthContext } from "../types/AuthTypes";
-import { TChildren } from "../types/Children";
+import { TAuthContext, TAuthState } from "../types/TAuthTypes";
 
+//Types for unsere Kontext
+
+
+//End Types
+
+//Kontext erstellen
 const AuthContext = createContext< TAuthContext | null >( null );
 
 export function useAuth() {
     return useContext(AuthContext);
 }
 
+//End Kontext erstellen
+
 var authState: TAuthState = {
     headers: null,
     isAuth: false,
     loggedUser: {
         id: "",
-        username: "gener",
+        username: "no-user",
         email: "",
         bio: "",
         password: ""
@@ -26,14 +33,14 @@ if (loggedIn) {
     authState = JSON.parse(loggedIn)
 }
 
-export function AuthProvider({ children }: TChildren) {
-
+//KontextProvider erstellen
+export function AuthProvider({ children }: { children: ReactNode | ReactNode[] }) {
+    console.log(authState);
     const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( authState );
 
     useEffect( () => {
         if (!headers) { return };
-
-        getUser({ headers }).then((loggedUser) => 
+        getUser( headers ).then((loggedUser) => 
             setAuthState((prev) => ({...prev, loggedUser}))
         ) //token senden, loggedUser erhalten
     }, [headers, setAuthState]);
@@ -44,5 +51,7 @@ export function AuthProvider({ children }: TChildren) {
         </AuthContext.Provider>
     );
 }
+//End KontextProvier
 
+//Export
 export default AuthProvider;

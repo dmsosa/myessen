@@ -1,3 +1,5 @@
+import LoginForm from "../components/LoginForm";
+
 export const Login = () => {
 
     return (
@@ -8,7 +10,9 @@ export const Login = () => {
                 <button className="btn btn-success">Login</button>
                 <button className="btn btn-info">Sign In</button>
             </div>
+            <LoginForm></LoginForm>
         </>
+       
     )
 }
 

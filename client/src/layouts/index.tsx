@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
 import App from "./App";
 import "../utils/index.scss";
@@ -15,16 +15,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <ThemeProvider>
-      <AuthProvider>
         <HashRouter>
+        <AuthProvider>
           <Routes>
             <Route element={<App />}>
-              <Route path="/" element={<Login />}/>
-              <Route path="/login" element={<Home />}/>
+              <Route path="login" element={<Login />}/>
+              <Route path="/" element={<Home />}/>
             </Route>
           </Routes>
+        </AuthProvider>
         </HashRouter>
-      </AuthProvider>
       </ThemeProvider>
     </React.StrictMode>
   </QueryClientProvider>,
