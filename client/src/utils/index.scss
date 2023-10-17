@@ -12,6 +12,22 @@ body {
     @include themify($themes) {
         background-color: themed('colorText');
     }
+    
+}
+.navbar-container {
+    border: 1px red solid;
+}
+.nav-item {
+    margin: 0 1em;
+}
+nav.navbar-nav.pull-xs-left {
+    background-color: red;
+}
+.nav-item {
+    border: 1px solid red;
+}
+.navbar-brand-logo {
+    width:85px;
 }
 .user-avatar {
     width: 1em;

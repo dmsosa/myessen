@@ -20,7 +20,7 @@ function DropdownMenu() {
     }
 
     return (
-        <li className="nav-item dropdown">
+        <li className="nav-item dropdown col">
             <div className="user-pic-div">
                 <Avatar alt={loggedUser ? loggedUser.username : "nonuser"} />
                 {loggedUser ? loggedUser.username : "nonuser"}

@@ -9,5 +9,5 @@ export type TAuthState = {
 
 export type TAuthContext = {
     authState: TAuthState,
-    setAuthState: ( newState: TAuthState ) => void;
+    setAuthState: React.Dispatch<React.SetStateAction<TAuthState>>;
 }
