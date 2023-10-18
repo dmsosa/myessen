@@ -1,8 +1,8 @@
-function SourceCodeLink({ left, right }: { left?: boolean, right?: boolean }) {
+function SourceCodeLink({ classN, left, right }: { classN?: string, left?: boolean, right?: boolean }) {
     
     const position = left ? "left" : right ? "right" : "";
     return (
-        <ul className={`nav navbar-nav pull-xs-${position} col`}>
+        <ul className={`nav-link pull-xs-${position} ${classN}`}>
             <li className="nav-item">
                 <a 
                 className="nav-link"
