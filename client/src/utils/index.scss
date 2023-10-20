@@ -14,7 +14,13 @@ body {
     }
     
 }
-
+#navbarSupportedContent {
+    color:white;
+    background-color: white;
+}
+.navbar-collapse:hover #navbarSupportedContent {
+    display: block;
+}
 .nav-item {
     margin: 0 1em;
 }
@@ -26,6 +32,11 @@ nav.navbar-nav.pull-xs-left {
 }
 .navbar-brand-logo {
     width:85px;
+}
+.collapse {
+    color:white;
+    display: block;
+    background-color: white;
 }
 .user-avatar {
     width: 1em;
