@@ -17,6 +17,10 @@ body {
 #navbarSupportedContent {
     color:white;
     background-color: white;
+    position: absolute;
+    text-align: right;
+    padding-right: 2em;
+    right: 0;
 }
 .navbar-collapse:hover #navbarSupportedContent {
     display: block;
