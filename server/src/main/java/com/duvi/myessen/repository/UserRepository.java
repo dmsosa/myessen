@@ -1,4 +1,4 @@
-package com.duvi.myessen.adapters;
+package com.duvi.myessen.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +7,6 @@ import com.duvi.myessen.domain.users.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
-    boolean existsByUsername(String name);
-    UserDetails findUserByEmail(String email);
-    User findUserByUsername(String username);
+    UserDetails findByUsername(String login);
+    UserDetails findByEmail(String login);
 }

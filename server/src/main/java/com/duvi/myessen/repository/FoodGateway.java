@@ -1,4 +1,4 @@
-package com.duvi.myessen.adapters;
+package com.duvi.myessen.repository;
 
 import java.util.Optional;
 

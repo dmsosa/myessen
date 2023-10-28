@@ -20,7 +20,7 @@ function Navbar() {
 
     return (
         
-        <nav className="navbar navbar-expand-lg">
+        <nav className="navbar navbar-expand-lg nav-main">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <img src={apple} className="navbar-brand-logo"/>MyEssen

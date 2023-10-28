@@ -1,8 +1,8 @@
-package com.duvi.myessen.domain.users.roles;
+package com.duvi.myessen.domain.users;
 
 public enum UserRole {
     ADMIN("admin"),
-    BASIC("basic");
+    USER("user");
 
     private String role;
 

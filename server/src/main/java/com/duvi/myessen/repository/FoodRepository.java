@@ -1,4 +1,4 @@
-package com.duvi.myessen.adapters;
+package com.duvi.myessen.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

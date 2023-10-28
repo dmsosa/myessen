@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.duvi.myessen.adapters.UserRepository;
+import com.duvi.myessen.repository.UserRepository;
 
 @Service
 public class AuthorizationService implements UserDetailsService {
@@ -15,8 +15,11 @@ public class AuthorizationService implements UserDetailsService {
     UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return repository.findUserByEmail(email);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        if (repository.findByUsername(login) == null) {
+            return repository.findByEmail(login);
+        }
+        return repository.findByUsername(login);
     }
 
     

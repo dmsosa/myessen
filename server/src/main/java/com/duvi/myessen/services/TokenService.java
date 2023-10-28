@@ -29,6 +29,7 @@ public class TokenService {
             .withIssuer("myessen")
             .withSubject(user.getUsername())
             .withClaim("email", user.getEmail())
+            .withIssuedAt(LocalDateTime.now().toInstant(ZoneOffset.of("+00:00")))
             .withExpiresAt(generateExpirationDate())
             .sign(algorithm);
             return token;
@@ -47,7 +48,7 @@ public class TokenService {
             .build();
 
             decodedJWT = verifier.verify(token);
-            return decodedJWT.getClaim("email").asString();
+            return decodedJWT.getSubject();
 
         } catch (JWTVerificationException exception) {
             return "";

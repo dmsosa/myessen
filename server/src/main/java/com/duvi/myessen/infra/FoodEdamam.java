@@ -1,8 +1,8 @@
 package com.duvi.myessen.infra;
 
-import com.duvi.myessen.adapters.FoodGateway;
+import com.duvi.myessen.controller.exception.food.FoodNotFoundException;
 import com.duvi.myessen.domain.food.Food;
-import com.duvi.myessen.exception.food.FoodNotFoundException;
+import com.duvi.myessen.repository.FoodGateway;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.JsonNode;

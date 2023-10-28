@@ -1,4 +1,4 @@
-package com.duvi.myessen.security;
+package com.duvi.myessen.infra.security;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.duvi.myessen.adapters.UserRepository;
+import com.duvi.myessen.repository.UserRepository;
 import com.duvi.myessen.services.TokenService;
 
 import jakarta.servlet.FilterChain;
@@ -31,12 +31,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
                 var token = this.recoverToken(request);
-                if (token != null) {
-                    var email = tokenService.validateToken(token);
-                    UserDetails user = repository.findUserByEmail(email);
+                if (token != null & SecurityContextHolder.getContext() == null) {
+                    String username = tokenService.validateToken(token);
+                    UserDetails user = repository.findByUsername(username);
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-
                 }
                 filterChain.doFilter(request, response);
     }

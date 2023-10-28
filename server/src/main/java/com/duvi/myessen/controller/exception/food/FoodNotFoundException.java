@@ -1,4 +1,4 @@
-package com.duvi.myessen.exception.food;
+package com.duvi.myessen.controller.exception.food;
 
 public class FoodNotFoundException extends RuntimeException {
     public FoodNotFoundException() {

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duvi.myessen.domain.food.Food;
-import com.duvi.myessen.domain.transfer.FoodDTO;
+import com.duvi.myessen.domain.food.FoodDTO;
 import com.duvi.myessen.services.FoodService;
 
 import jakarta.validation.Valid;

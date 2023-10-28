@@ -1,4 +1,4 @@
-package com.duvi.myessen.exception.user;
+package com.duvi.myessen.controller.exception.user;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {

@@ -8,8 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.duvi.myessen.domain.transfer.UserDTO;
-import com.duvi.myessen.domain.users.roles.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,9 +44,6 @@ public class User implements UserDetails {
         this.role = role;
     }
     
-    public UserDTO toUserDTO() {
-        return new UserDTO(this.id, this.username, this.email, this.bio, this.password);
-    }
     @Override
     public String getUsername() {
         return username;
