@@ -23,7 +23,9 @@ import com.duvi.myessen.repository.UserRepository;
 import com.duvi.myessen.services.TokenService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("auth")
 public class AuthorizationController {
@@ -40,7 +42,7 @@ public class AuthorizationController {
 
     @GetMapping("/login")
     public ResponseEntity<LoginResponseDTO> currentUser(@RequestHeader HttpHeaders headers) {
-
+        log.info("User visited");
         User user = new User();
         return new ResponseEntity<>(new LoginResponseDTO("2", user), HttpStatus.OK);
     }
