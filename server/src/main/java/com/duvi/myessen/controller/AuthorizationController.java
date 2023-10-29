@@ -42,9 +42,10 @@ public class AuthorizationController {
 
     @GetMapping("/login")
     public ResponseEntity<LoginResponseDTO> currentUser(@RequestHeader HttpHeaders headers) {
-        log.info("User visited");
-        User user = new User();
-        return new ResponseEntity<>(new LoginResponseDTO("2", user), HttpStatus.OK);
+        String token = headers.get("Authorization").get(0).replace("Bearer ","");
+        String username = tokenService.validateToken(token);
+        User user = (User) repository.findByUsername(username);
+        return new ResponseEntity<>(new LoginResponseDTO(token, user), HttpStatus.OK);
     }
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthorizationDTO data) {

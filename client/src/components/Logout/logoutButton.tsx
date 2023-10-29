@@ -1,8 +1,12 @@
 import userLogout from "../../services/userLogout";
+import { useNavigate } from "react-router-dom";
 
 function LogoutButton() {
+    const navigate = useNavigate();
     const logout = () => {
-        userLogout()
+        navigate("/login");
+        userLogout();
+        
     }
     return (
         <div className="logout-area">

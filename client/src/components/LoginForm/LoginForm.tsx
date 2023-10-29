@@ -7,15 +7,15 @@ import FormFieldSet from "../FormFieldSet";
 
 function LoginForm() {
 
-    const [form, setForm] = useState({email: "", password: ""});
+    const [form, setForm] = useState({login: "", password: ""});
     const { setAuthState } = useAuth() as TAuthContext;
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const { email, password } = form;
-        userLogin({ email, password })
+        const { login, password } = form;
+        userLogin({ login, password })
         .then((loggedUser) => setAuthState(loggedUser))
         .then( () => navigate("/"))
         console.log("retrieving login")
@@ -32,11 +32,11 @@ function LoginForm() {
     return (
         <form onSubmit={handleSubmit}>
             <FormFieldSet
-                type="email"
-                name="email"
+                type="text"
+                name="login"
                 required
-                placeholder="Email"
-                value={form.email}
+                placeholder="login"
+                value={form.login}
                 handler={inputHandler}
                 normal
                 minLength={3}

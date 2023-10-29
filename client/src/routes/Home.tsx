@@ -12,9 +12,12 @@ export const Home = () => {
                 <button className="btn btn-success">Greun</button>
             </div>
             <div className="container">
+                <div className="row">
                 <h2>Was ist los?</h2>
                 <Outlet/>
                 <LogoutButton></LogoutButton>
+                </div>
+                <div className="row"><h1>Another</h1><h2>One</h2><h3>Mehr</h3></div>
             </div>
         </>
     )

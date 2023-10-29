@@ -19,15 +19,18 @@ function Navbar() {
 
 
     return (
-        
-        <nav className="navbar navbar-expand-lg nav-main">
+        <div className="sticky-header nav-down" id="sticky-header">
+        <section className="bg-color-blue-nav">
+            <div className="navbar-overlay"></div>
+            <div className="container-lg p-0 px-lg-3">
+                <nav className="navbar navbar-expand nav-main presticked sticky" id="mainNav">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <img src={apple} className="navbar-brand-logo"/>MyEssen
                 </Link>
                 <DropdownMenu />
             </div>
-        </nav>
+        </nav></div></section></div>
     );
 }
 

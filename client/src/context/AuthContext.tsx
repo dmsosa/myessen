@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode | ReactNode[] }
     const [ { headers, isAuth, loggedUser }, setAuthState ] = useState( authState );
 
     useEffect( () => {
-        if (!headers) { return };
+        if (headers === null) { return };
         getUser( headers ).then((loggedUser) => 
             setAuthState((prev) => ({...prev, loggedUser}))
         ) //token senden, loggedUser erhalten
