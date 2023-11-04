@@ -261,9 +261,13 @@ a.btn.disabled,fieldset:disabled a.btn {
     flex-flow: row nowrap;
     justify-content: flex-start;
 }
+.toggler-container{
+    background-color: red;
+    border: green solid 1px;
+}
 #navbarSupportedContent {
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 0;
     z-index: 1000;
     display: block;
@@ -275,7 +279,7 @@ a.btn.disabled,fieldset:disabled a.btn {
     color: #212529;
     text-align: left;
     list-style: none;
-    background-color: #500f0f;
+    background-color: beige;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem
@@ -286,8 +290,10 @@ a.btn.disabled,fieldset:disabled a.btn {
 .nav-item {
     margin: 0;
 }
-nav.navbar-nav.pull-xs-left {
-    background-color: white;
+#mainNav {
+    background-color: wheat;
+    height: fit-content;
+    
 }
 .nav-item {
     border: 1px solid red;

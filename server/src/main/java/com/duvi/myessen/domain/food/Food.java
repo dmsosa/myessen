@@ -37,34 +37,28 @@ public class Food {
 
     @NotNull(message = "Jedes zutaten muss ein name haben")
     @Pattern(regexp="^[a-zA-Z ]+$", message = "Die name muss ein Ketter sein!")
-    @Column(name = "name")
     private String name;
-
-
-    @NotNull(message = "jede einzige Zutaten ein Geldwert hat!")
-    @Positive(message = "Die Zutaten  nicht kostenlos ist, bruder!!")
-    @Column(name = "price")
-    private Long price;
 
     @NotNull(message = "jede einzige Zutaten ein Kaloienwert hat!")
     @Positive(message = "es gibt keine Zutaten mit negativen Kalorienwert, bruder!")
-    @Column(name = "kcal")
     private Long kcal;
 
+    @NotNull(message = "jede einzige Zutaten ein Geldwert hat!")
+    @Positive(message = "Die Zutaten  nicht kostenlos ist, bruder!!")
+    private Long price;
 
     @URL
-    @Column(name = "image")
     private String image;
 
-    @Column(name = "description")
     private String description;
 
-    public Food(String name, Long kcal) {
+    public Food(String name, Long kcal, Long price) {
         this.name = name;
         this.kcal = kcal;
+        this.price = price;
     }
     public Food update(Food newFood) {
-        return new Food(this.id, newFood.getName(), newFood.getPrice(), newFood.getKcal(), newFood.getImage(), newFood.getDescription());
+        return new Food(this.id, newFood.getName(), newFood.getKcal(), newFood.getPrice(), newFood.getImage(), newFood.getDescription());
     }
 
 }

@@ -9,8 +9,8 @@ import java.util.List;
 public interface FoodService {
     List<Food> getFoods();
     public Food getFood(Long id) throws FoodNotFoundException;
-    public Food addFood(String name, Long price, Long kcal, String image, String description) throws FoodExistsException;
-    public Food getFoodByName(String name) throws FoodNotFoundException;
+    public Food addFood(String name, Long kcal, Long price, String image, String description) throws FoodExistsException;
+    // public Food getFoodByName(String name) throws FoodNotFoundException;
     public Food updateFood(Long oldFoodId, Food newFood);
-    public void deleteFood(Long foodId);
+    public void deleteFood(Long foodId) throws FoodNotFoundException;
 }

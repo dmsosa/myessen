@@ -1,0 +1,137 @@
+FORMAT: A1
+HOST: http://localhost:8080
+
+# MyEssen
+
+Was und wie essen wir?
+My Essen ein einfaches webapp ist, wo du info uber Zutaten un Rezepten finden kann!
+
+
+# MyEssen API root [/]
+
+Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App finden!
+
+## Get Entry Point [GET]
+
++ Response 200 (application/json)
+
+        {
+            "foods":"/api/menu/items",
+            "users":"/api/users"
+        }
+
+## Foods [/api/menu/items]
+
+### Get Foods [GET]
+
++ Response 200 (application/json)
+    
+        [
+            {
+                "name": "Banana",
+                "kcal": 89,
+                "price": 10,
+                "image": "empty",
+                "description": "creamy"
+            },
+            {
+                "name": "Apple",
+                "kcal": 50,
+                "price": 5,
+                "image": "empty",
+                "description": "juicy"
+            },
+            {
+                "name": "Lemon",
+                "kcal": 12,
+                "price": 15,
+                "image": "empty",
+                "description": "acid"
+            }
+
+        ]
+        
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
+
+### Create Food [POST]
+
++ Request Ein essen zu erstellen
+
+    + Headers 
+
+            Accept: application/json
+            content-type: application/json; charset=utf-8
+    + Attributes (Food)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (Error)
+    + Attributes (Error)
+        
+
+## Food [/api/menu/items/{id}]
+
++ Parameters 
+    + id: 1 (number, required) - The id of the food we will interact with
+
+
+### Get a Food [GET]
+
++ Request Ein Essen zu erhalten
+
+    + Headers 
+
+            Authorization: token
+            Accept: application/json
+            Content-Type: application/json
+
++ Response 200
+    + Attributes (Food)
++ Response 404 
+    + Attributes (NotFoundError)
+
+### Edit a Food [PUT]
+
++ Request Edit a Food 
+
+        + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (Food)
+
++ Response 200 (application/json)
+
+    + Attributes (Created)
+
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
+
+### Delete a Food [DELETE]
++ Response 204 (application/json)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
+
+
+# Data Structures
+
+## Food (object)
++ name: Banana (string)
++ kcal: 89 (number)
++ price: 10 (number)
++ image: empty (string)
++ description: creamy (string)
+
+## Created (Food)
++ id: 12 (number)
+
+## NotFoundError (object)
++ error (string)
++ message (string)
+
+## Error (object)
++ error: generic error (string)
++ message: An error ocurred (string)
+

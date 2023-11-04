@@ -1,14 +1,10 @@
 package com.duvi.myessen.controller.exception.user;
 
-public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException() {
-        super("Food not found!!");
-    }
-
-    public UserNotFoundException(String message) {
-        super(message);
-    }
+public class UserNotFoundException extends Exception {
     public UserNotFoundException(Long id) {
-        super("User with id: "+id+"was not found!");
+        super(String.format("User with id %s was not found", String.valueOf(id)));
+    }
+    public UserNotFoundException(String login) {
+        super(String.format("User with login %s was not found", login));
     }
 }

@@ -21,31 +21,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.duvi.myessen.controller.exception.food.FoodExistsException;
+import com.duvi.myessen.controller.exception.food.FoodNotFoundException;
 import com.duvi.myessen.domain.food.Food;
 import com.duvi.myessen.domain.food.FoodDTO;
 import com.duvi.myessen.services.FoodService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "https://dashboard.whatabyte.app")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/menu/items")
 public class FoodController {
+
+    @Autowired
     private FoodService service;
     
-    @Autowired
-    FoodController(FoodService service) {
-        this.service = service;
-    }
+    
 
-    @GetMapping("/food/{name}")
-    public FoodDTO getFood(@PathVariable String name)   {
-        System.out.println(name);
-        Food food = service.getFoodByName(name);
-        FoodDTO foodTransferObject = new FoodDTO(food);
-        System.out.print(food.toString());
-        return foodTransferObject;
-    }
+
+    // @GetMapping("/food/{name}")
+    // public FoodDTO getFood(@PathVariable String name)   {
+    //     System.out.println(name);
+    //     Food food = service.getFoodByName(name);
+    //     FoodDTO foodTransferObject = new FoodDTO(food);
+    //     System.out.print(food.toString());
+    //     return foodTransferObject;
+    // }
 
     @GetMapping
     public List<Food> getAll() {
@@ -54,25 +56,39 @@ public class FoodController {
     }
 
     @GetMapping("/{id}")
-    public Food getFood(@PathVariable Long id) {
-        return this.service.getFood(id);
+    public ResponseEntity<Food> getFood(@PathVariable Long id) throws FoodNotFoundException {
+        try {
+            Food food = this.service.getFood(id);
+            return new ResponseEntity<>(food, HttpStatus.OK);
+        } catch (FoodNotFoundException ex) {
+            throw ex;
+        }
     }
     @PostMapping
-    public ResponseEntity<Food> createFood(@Valid@RequestBody Food food) {
-        Food newFood = this.service.addFood(food.getName(), food.getPrice(), food.getKcal(), food.getImage(), food.getDescription());
-        ResponseEntity<Food> response = new ResponseEntity<>(newFood, HttpStatus.OK);
-        return response;
+    public ResponseEntity<Food> createFood(@Valid @RequestBody FoodDTO food) throws FoodExistsException {
+        try {
+            Food newFood = this.service.addFood(food.name(), food.kcal(), food.price(), food.image(), food.description());
+            return new ResponseEntity<>(newFood, HttpStatus.OK);
+        } catch (FoodExistsException ex) {
+            throw ex;
+        } 
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood(@PathVariable Long id, @Valid@RequestBody Food food) {
-        this.service.updateFood(id, food);
-        ResponseEntity<Food> response = new ResponseEntity<>(this.service.getFood(id), HttpStatus.OK);
-        return response;
+    public ResponseEntity<Food> updateFood(@PathVariable Long id, @Valid@RequestBody FoodDTO food) {
+        Food newFood = this.service.updateFood(id, food);
+        return new ResponseEntity<>(newFood, HttpStatus.OK);      
     }
+
     @DeleteMapping("/{id}")
-    public void deleteFood(@PathVariable Long id) {
-        this.service.deleteFood(id);
+    public ResponseEntity<String> deleteFood(@PathVariable Long id) throws FoodNotFoundException {
+        try {
+            this.service.deleteFood(id);
+            return new ResponseEntity<>(String.format("Food with ID: %s successfully deleted!", String.valueOf(id)),HttpStatus.ACCEPTED);
+        } catch (FoodNotFoundException ex) {
+            throw ex;
+        }
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

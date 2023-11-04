@@ -1,7 +1,7 @@
 package com.duvi.myessen.domain.food;
 
-public record FoodDTO(Long id, String name, Long kcal) {
+public record FoodDTO(String name, Long kcal, Long price, String image, String description) {
     public FoodDTO(Food food) {
-        this(food.getId(), food.getName(), food.getKcal());
+        this(food.getName(), food.getKcal(), food.getPrice(), food.getImage(), food.getDescription());
     }
 }

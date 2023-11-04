@@ -17,14 +17,12 @@ import java.util.Optional;
 
 @Service
 public class FoodServiceImpl implements FoodService {
-    private FoodGateway gateway;
+
+    // private FoodGateway gateway;
+    @Autowired
     private FoodRepository repository;
 
-    @Autowired
-    public FoodServiceImpl(FoodRepository repository, FoodGateway gateway) {
-        this.repository = repository;
-        this.gateway = gateway;
-    }
+
 
     @Override
     public List<Food> getFoods() {
@@ -38,20 +36,20 @@ public class FoodServiceImpl implements FoodService {
         if (food.isPresent()) {
             return food.get();
         } else {
-            throw new FoodNotFoundException("Food with id="+id+" not found!!");
+            throw new FoodNotFoundException(id);
         }
     }
 
     @Override
-    public Food addFood(String name, Long price, Long kcal, String image, String description) throws FoodExistsException {
+    public Food addFood(String name, Long kcal, Long price, String image, String description) throws FoodExistsException {
         if (repository.existsByName(name)) {
-            throw new FoodExistsException(name + "already stored!!");
+            throw new FoodExistsException(name);
         }
         else {
             Food b = new Food();
             b.setName(name);
-            b.setPrice(price);
             b.setKcal(kcal);
+            b.setPrice(price);
             b.setImage(image);
             b.setDescription(description);
             this.repository.save(b);
@@ -59,15 +57,15 @@ public class FoodServiceImpl implements FoodService {
         }
     }
 
-    @Override
-    public Food getFoodByName(String name) throws FoodNotFoundException {
-            Optional<Food> food = this.gateway.getFoodByName(name);
-            if (food.isPresent()) {
-                return food.get();
-            } else {
-                throw new FoodNotFoundException(name + " was not found!!");
-            }
-    }
+    // @Override
+    // public Food getFoodByName(String name) throws FoodNotFoundException {
+    //         Optional<Food> food = this.gateway.getFoodByName(name);
+    //         if (food.isPresent()) {
+    //             return food.get();
+    //         } else {
+    //             throw new FoodNotFoundException(name + " was not found!!");
+    //         }
+    // }
 
     @Override
     public Food updateFood(Long oldFoodId, Food newFood) {
@@ -78,13 +76,19 @@ public class FoodServiceImpl implements FoodService {
             return updated;
         } else {
             this.repository.save(newFood);
+            newFood = this.repository.findByName(newFood.getName()).get();
             return newFood;
         }
         
     }
 
     @Override
-    public void deleteFood(Long foodId){
-        this.repository.deleteById(foodId);
+    public void deleteFood(Long foodId) throws FoodNotFoundException {
+        Optional<Food> food = this.repository.findById(foodId);
+        if (food.isPresent())  {
+            this.repository.deleteById(foodId);
+        } else {
+            throw new FoodNotFoundException(foodId);
+        };
     }
 }
