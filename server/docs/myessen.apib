@@ -16,13 +16,13 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
 + Response 200 (application/json)
 
         {
-            "foods":"/api/menu/items",
+            "food":"/api/food",
             "users":"/api/users"
         }
 
-## Foods [/api/menu/items]
+# All Foods [/api/food]
 
-### Get Foods [GET]
+## Get Foods [GET]
 
 + Response 200 (application/json)
     
@@ -54,7 +54,7 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
 + Response 404 (application/json)
     + Attributes (NotFoundError)
 
-### Create Food [POST]
+## Create Food [POST]
 
 + Request Ein essen zu erstellen
 
@@ -71,7 +71,7 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
     + Attributes (Error)
         
 
-## Food [/api/menu/items/{id}]
+# Individual Food [/api/food/{id}]
 
 + Parameters 
     + id: 1 (number, required) - The id of the food we will interact with
@@ -83,13 +83,13 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
 
     + Headers 
 
-            Authorization: token
             Accept: application/json
             Content-Type: application/json
 
-+ Response 200
-    + Attributes (Food)
-+ Response 404 
++ Response 200 (application/json)
+    + Attributes (Created)
+    
++ Response 404 (application/json)
     + Attributes (NotFoundError)
 
 ### Edit a Food [PUT]
@@ -103,7 +103,6 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
     + Attributes (Food)
 
 + Response 200 (application/json)
-
     + Attributes (Created)
 
 + Response 404 (application/json)
@@ -125,11 +124,11 @@ Mit der Wurzel unseres API, du kannst die verschiedene Verbindungen unseres App 
 + description: creamy (string)
 
 ## Created (Food)
-+ id: 12 (number)
++ id: 1 (number)
 
 ## NotFoundError (object)
-+ error (string)
-+ message (string)
++ error:"Food Not Found Exception" (string)
++ message: "This food was not found" (string)
 
 ## Error (object)
 + error: generic error (string)
