@@ -55,7 +55,24 @@ public class TokenService {
         }
     }
 
+    public Instant getExpirationDate(String token) {
+        DecodedJWT decodedJWT;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            JWTVerifier verifier = JWT.require(algorithm)
+            .withIssuer("myessen")
+            .build();
+            decodedJWT = verifier.verify(token);
+            return decodedJWT.getExpiresAtAsInstant();
+
+        } catch (JWTVerificationException ex) {
+            throw ex;
+        }
+    }
+
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("+00:00"));
     }
+
+
 }

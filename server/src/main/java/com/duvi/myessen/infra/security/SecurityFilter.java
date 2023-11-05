@@ -1,6 +1,9 @@
 package com.duvi.myessen.infra.security;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,11 +35,13 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
                 var token = this.recoverToken(request);
                 if (token != null) {
-                    String username = tokenService.validateToken(token);
-                    logger.info(username);
-                    UserDetails user = repository.findByUsername(username);
-                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    if (!isTokenExpired(token)) {
+                        String username = tokenService.validateToken(token);
+                        logger.info(String.format("Token received from user with username: \"%s\"", username));
+                        UserDetails user = repository.findByUsername(username);
+                        var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
                 filterChain.doFilter(request, response);
     }
@@ -45,5 +50,14 @@ public class SecurityFilter extends OncePerRequestFilter {
         var authHeader = request.getHeader("Authorization");
         if (authHeader == null) return null;
         return authHeader.replace("Bearer ", "");
+    }
+
+    private boolean isTokenExpired(String token) {
+        Instant expirationDate = tokenService.getExpirationDate(token);
+        Instant currentDate = LocalDateTime.now().toInstant(ZoneOffset.of("+00:00"));
+        if (expirationDate.compareTo(currentDate) < 0)  {
+                return true;
+            }
+        return false;
     }
 }

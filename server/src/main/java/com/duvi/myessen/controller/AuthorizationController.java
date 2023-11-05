@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.duvi.myessen.controller.exception.user.UserNotFoundException;
 import com.duvi.myessen.domain.users.AuthorizationDTO;
 import com.duvi.myessen.domain.users.LoginResponseDTO;
 import com.duvi.myessen.domain.users.RegisterDTO;
@@ -48,12 +49,15 @@ public class AuthorizationController {
         return new ResponseEntity<>(new LoginResponseDTO(token, user), HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthorizationDTO data) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthorizationDTO data) throws UserNotFoundException {
         
         UserDetails user = this.repository.findByEmail(data.login());
         if (user == null) {
            user = this.repository.findByUsername(data.login());
         };
+        if (user == null) {
+            throw new UserNotFoundException(data.login());
+        }
         User foundUser = (User) user;
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);

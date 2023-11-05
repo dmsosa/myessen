@@ -1,5 +1,6 @@
 package com.duvi.myessen.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duvi.myessen.controller.exception.food.FoodExistsException;
@@ -31,11 +33,12 @@ import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/menu/items")
+@RequestMapping("api/food")
 public class FoodController {
 
     @Autowired
     private FoodService service;
+
     
     
 
@@ -50,9 +53,16 @@ public class FoodController {
     // }
 
     @GetMapping
-    public List<Food> getAll() {
-        System.out.print("yoAAAA###");
-        return this.service.getFoods();
+    public ResponseEntity<List<Food>> getAll(@RequestParam(required = false, name = "name") String name) throws FoodNotFoundException {
+        if (name == null) {
+            return new ResponseEntity<>(this.service.getFoods(), HttpStatus.OK);
+        }
+        try {
+            List<Food> food = Collections.singletonList(this.service.findByName(name));
+            return new ResponseEntity<>(food, HttpStatus.OK);
+        } catch (FoodNotFoundException ex) {
+            throw ex;
+        }
     }
 
     @GetMapping("/{id}")
@@ -64,6 +74,7 @@ public class FoodController {
             throw ex;
         }
     }
+
     @PostMapping
     public ResponseEntity<Food> createFood(@Valid @RequestBody FoodDTO food) throws FoodExistsException {
         try {

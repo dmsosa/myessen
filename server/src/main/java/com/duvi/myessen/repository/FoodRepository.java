@@ -11,4 +11,5 @@ import com.duvi.myessen.domain.food.Food;
 public interface FoodRepository  extends JpaRepository<Food, Long> {
     boolean existsByName(String name);
     Optional<Food> findByName(String name);
+    
 }

@@ -4,6 +4,7 @@ import com.duvi.myessen.services.FoodService;
 import com.duvi.myessen.controller.exception.food.FoodExistsException;
 import com.duvi.myessen.controller.exception.food.FoodNotFoundException;
 import com.duvi.myessen.domain.food.Food;
+import com.duvi.myessen.domain.food.FoodDTO;
 import com.duvi.myessen.repository.FoodGateway;
 import com.duvi.myessen.repository.FoodRepository;
 
@@ -41,6 +42,16 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public Food findByName(String name) throws FoodNotFoundException {
+        Optional<Food> food = repository.findByName(name);
+        if (food.isPresent()) {
+            return food.get();
+        } else {
+            throw new FoodNotFoundException(name);
+        }
+    }
+
+    @Override
     public Food addFood(String name, Long kcal, Long price, String image, String description) throws FoodExistsException {
         if (repository.existsByName(name)) {
             throw new FoodExistsException(name);
@@ -68,8 +79,9 @@ public class FoodServiceImpl implements FoodService {
     // }
 
     @Override
-    public Food updateFood(Long oldFoodId, Food newFood) {
+    public Food updateFood(Long oldFoodId, FoodDTO newFoodDTO) {
         Optional<Food> oldFood = this.repository.findById(oldFoodId);
+        Food newFood = new Food(newFoodDTO);
         if (oldFood.isPresent()) {
             Food updated = oldFood.get().update(newFood);
             repository.save(updated);

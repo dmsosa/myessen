@@ -1,7 +1,6 @@
 package com.duvi.myessen.domain.food;
 
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -57,8 +56,22 @@ public class Food {
         this.kcal = kcal;
         this.price = price;
     }
+    public Food(FoodDTO foodDTO) {
+        this.name = foodDTO.name();
+        this.kcal = foodDTO.kcal();
+        this.price = foodDTO.price();
+        this.image = foodDTO.image();
+        this.description = foodDTO.description();
+    }
     public Food update(Food newFood) {
-        return new Food(this.id, newFood.getName(), newFood.getKcal(), newFood.getPrice(), newFood.getImage(), newFood.getDescription());
+        return new Food(
+            this.id, 
+            newFood.getName(), 
+            newFood.getKcal(), 
+            newFood.getPrice(), 
+            newFood.getImage(), 
+            newFood.getDescription()
+            );
     }
 
 }
