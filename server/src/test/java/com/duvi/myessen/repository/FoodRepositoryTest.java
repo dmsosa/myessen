@@ -27,7 +27,6 @@ public class FoodRepositoryTest {
 
 
     @Test
-    @Sql("create-food.sql")
     void afterSaveFoodisNotEmpty() {
         Food food = new Food("Erdnuss",(long) 439, (long) 10);
         entityManager.persist(food);

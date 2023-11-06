@@ -11,6 +11,12 @@ build:
         name: install-dredd
         code: npm install dredd@14.1.0 --global
     - script:
+        name: install-dredd
+        code: npm install dredd@14.1.0 --global
+    - script:
+        name: dredd
+        code: dredd
+    - script:
         name: dredd
         code: dredd
     - script:
