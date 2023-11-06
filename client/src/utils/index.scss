@@ -20,6 +20,9 @@ body {
     color: #212529;
     text-align: left 
 }
+.body-noscroll {
+    overflow: hidden;
+}
 h1,h2,h3 {
     margin-top: 0;
     margin-bottom: .5rem
@@ -267,10 +270,11 @@ a.btn.disabled,fieldset:disabled a.btn {
 }
 #navbarSupportedContent {
     position: absolute;
-    top: 99%;
+    top: 0;
     left: 0;
+    right: 0;
+    background-origin: padding-box;
     z-index: 1000;
-    display: block;
     float: left;
     min-width: 10rem;
     padding: 0.5rem 0;
@@ -282,11 +286,13 @@ a.btn.disabled,fieldset:disabled a.btn {
     background-color: beige;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
+    height: 100vh;
     border-radius: .25rem
 }
 .navbar-collapse:hover #navbarSupportedContent {
     display: block;
 }
+
 .nav-item {
     margin: 0;
 }
@@ -306,6 +312,18 @@ a.btn.disabled,fieldset:disabled a.btn {
     display: block;
     background-color: white;
 }
+
+.nav-main.navbar-collapse-main.show {
+    z-index: 999;
+    opacity: 1;
+
+    visibility: visible;
+    background-color: #0056b3;
+}
+.navbar-collapse-main {
+    background-color: blueviolet;
+}
+
 .user-avatar {
     width: 1em;
 }

@@ -23,17 +23,16 @@ function Navbar() {
             <section className="bg-color-blue-nav">
                 <div className="navbar-overlay"></div>
                 <div className="container-lg p-0 px-lg-3" id="mainNavContainer">
-                    <nav className="navbar navbar-expand-lg nav-main presticked sticky consolas" id="mainNav">
-                        <div className="container">
+                    <nav className="navbar nav-main navbar-expand-lg nav-main presticked sticky consolas" id="mainNav">
                         <Link className="navbar-brand" to="/">
-                            <img src={apple} className="navbar-brand navbar-brand-logo"/>MyEssen
+                            <img src={apple} className="navbar-brand navbar-brand-logo d-lg-none"/>MyEssen
                         </Link>
                         <DropdownMenu/>
-                        </div>
 
 
                     </nav>
                 </div>
+
             </section>
 
         </div>
