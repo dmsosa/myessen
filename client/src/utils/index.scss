@@ -264,17 +264,56 @@ a.btn.disabled,fieldset:disabled a.btn {
     flex-flow: row nowrap;
     justify-content: flex-start;
 }
+
+/*Toggler styles*/
 .toggler-container{
     background-color: red;
     border: green solid 1px;
 }
+.navbar-toggler {
+    z-index: 1000;
+    position: absolute;
+}
+.navbar-toggler-icon {
+    animation-name: openToggler;
+    animation-duration: 0.45s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    opacity: 1;
+}
+@keyframes openToggler {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.bi-globe {
+    animation-name: closeToggler;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    opacity: 1;
+}
+@keyframes closeToggler {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/*SupportedContent styles*/
 #navbarSupportedContent {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     background-origin: padding-box;
-    z-index: 1000;
+    z-index: 999;
     float: left;
     min-width: 10rem;
     padding: 0.5rem 0;
