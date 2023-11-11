@@ -254,6 +254,8 @@ a:not([href]):not([class]),a:not([href]):not([class]):hover {
 a.btn.disabled,fieldset:disabled a.btn {
     pointer-events: none
 }
+
+/*Navbar styles*/
 .navbar {
     @include themify($themes) {
         background-color: themed('colorText');
@@ -264,7 +266,9 @@ a.btn.disabled,fieldset:disabled a.btn {
     flex-flow: row nowrap;
     justify-content: flex-start;
 }
-
+.navbar-nav {
+    background-color: red;
+}
 /*Toggler styles*/
 .toggler-container{
     background-color: red;
