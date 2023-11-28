@@ -23,7 +23,7 @@ import com.duvi.myessen.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfigurations {
+public class SecurityConfiguration {
 
     @Autowired
     SecurityFilter securityFilter;
