@@ -54,7 +54,7 @@ public class AuthorizationController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthorizationDTO data) throws UserNotFoundException {
         
         UserDetails user = userService.findByLogin(data.login());
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(user.getUsername(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
         

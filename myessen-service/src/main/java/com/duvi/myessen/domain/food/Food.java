@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.URL;
 import java.math.BigDecimal;
 
 
-@Table(name = "leben")
+@Table(name = "foods ")
 @Entity(name = "food")
 @Getter
 @Data
@@ -49,8 +49,8 @@ public class Food {
 
     @URL
     private String image;
-
     private String description;
+    private Long toolId;
 
     public Food(String name, Long kcal, BigDecimal price) {
         this.name = name;
@@ -63,6 +63,7 @@ public class Food {
         this.price = foodDTO.price();
         this.image = foodDTO.image();
         this.description = foodDTO.description();
+        this.toolId = foodDTO.toolId();
     }
     public Food update(Food newFood) {
         return new Food(
@@ -71,7 +72,8 @@ public class Food {
             newFood.getKcal(), 
             newFood.getPrice(), 
             newFood.getImage(), 
-            newFood.getDescription()
+            newFood.getDescription(),
+                newFood.getToolId()
             );
     }
 

@@ -1,2 +1,5 @@
 ALTER TABLE leben
-ADD fk_tool_id INT FOREIGN KEY REFERENCES Tools(tool_id);
+ADD tool_id INT;
+
+ALTER TABLE leben
+ADD CONSTRAINT fk_tool_id FOREIGN KEY (tool_id) REFERENCES tools(id);

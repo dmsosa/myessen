@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.validation.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,18 +40,14 @@ public class FoodController {
     @Autowired
     private FoodService service;
 
-    
-    
-
-
-    // @GetMapping("/food/{name}")
-    // public FoodDTO getFood(@PathVariable String name)   {
-    //     System.out.println(name);
-    //     Food food = service.getFoodByName(name);
-    //     FoodDTO foodTransferObject = new FoodDTO(food);
-    //     System.out.print(food.toString());
-    //     return foodTransferObject;
-    // }
+//     @GetMapping("/food/{name}")
+//     public FoodDTO getFood(@PathVariable String name)   {
+//         System.out.println(name);
+//         Food food = service.getFoodByName(name);
+//         FoodDTO foodTransferObject = new FoodDTO(food);
+//         System.out.print(food.toString());
+//         return foodTransferObject;
+//     }
 
     @GetMapping
     public ResponseEntity<List<Food>> getAll(@RequestParam(required = false, name = "name") String name) throws FoodNotFoundException {
@@ -64,7 +61,10 @@ public class FoodController {
             throw ex;
         }
     }
-
+    @GetMapping("/tool/{toolId}")
+    public List<Food> getByToolId(@PathVariable Long toolId) {
+        return service.findByToolId(toolId);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Food> getFood(@PathVariable Long id) throws FoodNotFoundException {
         try {
@@ -78,7 +78,7 @@ public class FoodController {
     @PostMapping
     public ResponseEntity<Food> createFood(@Valid @RequestBody FoodDTO food) throws FoodExistsException {
         try {
-            Food newFood = this.service.addFood(food.name(), food.kcal(), food.price(), food.image(), food.description());
+            Food newFood = this.service.addFood(food.name(), food.kcal(), food.price(), food.image(), food.description(), food.toolId());
             return new ResponseEntity<>(newFood, HttpStatus.OK);
         } catch (FoodExistsException ex) {
             throw ex;
@@ -101,18 +101,5 @@ public class FoodController {
             throw ex;
         }
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<Map<String,String>> handleValidationException(MethodArgumentNotValidException exception) {
-        List<ObjectError> errors = exception.getBindingResult().getAllErrors();
-        Map<String,String> map = new HashMap<>(errors.size());
-        errors.forEach((err) -> {
-            String key = ((FieldError) err).getField();
-            String value = err.getDefaultMessage();
-            map.put(key, value);
-        });
-        return ResponseEntity.badRequest().body(map);
-    }
-
-    }
+}
 

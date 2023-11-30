@@ -51,9 +51,13 @@ public class FoodServiceImpl implements FoodService {
             throw new FoodNotFoundException(name);
         }
     }
-
     @Override
-    public Food addFood(String name, Long kcal, BigDecimal price, String image, String description) throws FoodExistsException {
+    public List<Food> findByToolId(Long toolId) {
+        List<Food> foodList = repository.findAll();
+        return foodList.stream().filter((food) -> food.getToolId() == toolId).toList();
+    }
+    @Override
+    public Food addFood(String name, Long kcal, BigDecimal price, String image, String description, Long toolId) throws FoodExistsException {
         if (repository.existsByName(name)) {
             throw new FoodExistsException(name);
         }
@@ -64,6 +68,7 @@ public class FoodServiceImpl implements FoodService {
             b.setPrice(price);
             b.setImage(image);
             b.setDescription(description);
+            b.setToolId(toolId);
             this.repository.save(b);
             return b; 
         }
