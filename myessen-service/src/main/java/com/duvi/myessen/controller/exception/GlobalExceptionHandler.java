@@ -17,8 +17,6 @@ import org.springframework.web.util.WebUtils;
 
 import com.duvi.myessen.controller.exception.food.FoodExistsException;
 import com.duvi.myessen.controller.exception.food.FoodNotFoundException;
-import com.duvi.myessen.controller.exception.user.UserExistsException;
-import com.duvi.myessen.controller.exception.user.UserNotFoundException;
 import com.duvi.myessen.domain.ApiError;
 
 import io.micrometer.common.lang.Nullable;
@@ -49,20 +47,6 @@ public class GlobalExceptionHandler {
             HttpStatus status = HttpStatus.NOT_FOUND;
             FoodNotFoundException fnfe = (FoodNotFoundException) ex;
             return fnfeHandler(fnfe, headers, status, request);
-        } else if (ex instanceof FoodExistsException) {
-            HttpStatus status = HttpStatus.CONFLICT;
-            UserExistsException uee = (UserExistsException) ex;
-            return ueeHandler(uee, headers, status, request);
-        }
-        //User exceptions
-        else if (ex instanceof UserNotFoundException) {
-            HttpStatus status = HttpStatus.NOT_FOUND;
-            UserNotFoundException unfe = (UserNotFoundException) ex;
-            return unfeHandler(unfe, headers, status, request);
-        } else if (ex instanceof UserExistsException) {
-            HttpStatus status = HttpStatus.CONFLICT;
-            UserExistsException uee = (UserExistsException) ex;
-            return ueeHandler(uee, headers, status, request);
         }
         //Other exceptions
         else {
@@ -90,18 +74,6 @@ public class GlobalExceptionHandler {
     }
     public final ResponseEntity<ApiError> feeHandler(FoodExistsException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ObjectError errors = new ObjectError("Food Already Exists Exception", ex.getMessage());
-        ApiError body = new ApiError(Collections.singletonList(errors));
-        return internalExceptionHandler(ex, body, headers, status, request);
-    }
-
-    //User exceptions handler
-    public final ResponseEntity<ApiError> unfeHandler(UserNotFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ObjectError errors = new ObjectError("User Not Found Exception", ex.getMessage());
-        ApiError body = new ApiError(Collections.singletonList(errors));
-        return internalExceptionHandler(ex, body, headers, status, request);
-    }
-    public final ResponseEntity<ApiError> ueeHandler(UserExistsException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ObjectError errors = new ObjectError("User Already Exists Exception", ex.getMessage());
         ApiError body = new ApiError(Collections.singletonList(errors));
         return internalExceptionHandler(ex, body, headers, status, request);
     }
