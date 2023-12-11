@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.validation.Path;
+import com.duvi.myessen.domain.food.FoodResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,12 @@ import com.duvi.myessen.controller.exception.food.FoodNotFoundException;
 import com.duvi.myessen.domain.food.Food;
 import com.duvi.myessen.domain.food.FoodDTO;
 import com.duvi.myessen.services.FoodService;
+import reactor.core.publisher.Mono;
 
-import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/food")
+@RequestMapping("api/foods")
 public class FoodController {
 
     @Autowired
@@ -49,7 +50,8 @@ public class FoodController {
 //         return foodTransferObject;
 //     }
 
-    @GetMapping
+    //Basic CRUD Operations
+    @GetMapping("/")
     public ResponseEntity<List<Food>> getAll(@RequestParam(required = false, name = "name") String name) throws FoodNotFoundException {
         if (name == null) {
             return new ResponseEntity<>(this.service.getFoods(), HttpStatus.OK);
@@ -61,12 +63,8 @@ public class FoodController {
             throw ex;
         }
     }
-    @GetMapping("/tool/{toolId}")
-    public List<Food> getByToolId(@PathVariable Long toolId) {
-        return service.findByToolId(toolId);
-    }
     @GetMapping("/{id}")
-    public ResponseEntity<Food> getFood(@PathVariable Long id) throws FoodNotFoundException {
+    public ResponseEntity<Food> getFoodById(@PathVariable Long id) throws FoodNotFoundException {
         try {
             Food food = this.service.getFood(id);
             return new ResponseEntity<>(food, HttpStatus.OK);
@@ -75,21 +73,21 @@ public class FoodController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Food> createFood(@Valid @RequestBody FoodDTO food) throws FoodExistsException {
         try {
             Food newFood = this.service.addFood(food.name(), food.kcal(), food.price(), food.image(), food.description(), food.toolId());
             return new ResponseEntity<>(newFood, HttpStatus.OK);
         } catch (FoodExistsException ex) {
             throw ex;
-        } 
+        }
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood(@PathVariable Long id, @Valid@RequestBody FoodDTO food) {
+    public ResponseEntity<Food> updateFood(@PathVariable Long id, @Valid @RequestBody FoodDTO food) {
         Food newFood = this.service.updateFood(id, food);
-        return new ResponseEntity<>(newFood, HttpStatus.OK);      
+        return new ResponseEntity<>(newFood, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -101,5 +99,15 @@ public class FoodController {
             throw ex;
         }
     }
+
+    //Operations with tools
+    @GetMapping("/toolId/{toolId}")
+    public ResponseEntity<FoodResponse> getByToolId(@PathVariable Long toolId) {
+        FoodResponse foodResponse = new FoodResponse(service.findByToolId(toolId));
+        return new ResponseEntity<>(foodResponse, HttpStatus.OK);
+    }
+
+
+
 }
 

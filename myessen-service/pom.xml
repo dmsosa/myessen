@@ -8,14 +8,14 @@
 		<version>3.1.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.duvi.myessen</groupId>
+	<groupId>com.duvi</groupId>
 	<artifactId>myessen</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>myessen</name>
 	<description>Wie viel essen wir?</description>
 	<properties>
 		<java.version>21</java.version>
-		<spring-cloud.version>2023.0.0-RC1</spring-cloud.version>
+		<spring-cloud.version>2022.0.4</spring-cloud.version>
 	</properties>
 	<dependencies>
 	<!-- Basic Spring Boot dependencies -->
@@ -37,6 +37,10 @@
 				<scope>runtime</scope>
 				<optional>true</optional>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+			</dependency>
 			<!-- DATA: PostgreSQL, Flyway and Lombok -->
 			<dependency>
 				<groupId>org.postgresql</groupId>
@@ -53,10 +57,15 @@
 				<optional>true</optional>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-validation</artifactId>
+			</dependency>
+			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<scope>test</scope>
 			</dependency>
+
 			<!-- Test -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -89,7 +98,12 @@
 			<artifactId>spring-cloud-config-client</artifactId>
 			<version>4.0.4</version>
 		</dependency>
-				<!-- Using dotenv -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<!-- Using dotenv -->
 			<dependency>
 				<groupId>io.github.cdimascio</groupId>
 				<artifactId>java-dotenv</artifactId>
@@ -98,6 +112,17 @@
 		</dependencies>
 
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>

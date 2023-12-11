@@ -8,7 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,14 +29,9 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ApiError> exceptionHandler(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         
-        //Bad Request exception
-        if (ex instanceof BadCredentialsException) {
-            HttpStatus status = HttpStatus.UNAUTHORIZED;
-            BadCredentialsException bce = (BadCredentialsException) ex;
-            return bceHandler(bce, headers, status, request); 
-        } 
+
         //DB Exceptions
-        else if (ex instanceof DataIntegrityViolationException) {
+        if (ex instanceof DataIntegrityViolationException) {
             HttpStatus status = HttpStatus.BAD_REQUEST;
             DataIntegrityViolationException dive = (DataIntegrityViolationException) ex;
             return diveHandler(dive, headers, status, request);
@@ -53,12 +47,6 @@ public class GlobalExceptionHandler {
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return internalExceptionHandler(ex, null, headers, status, request);
         }
-    }
-    //Bad Credentials handler
-    public final ResponseEntity<ApiError> bceHandler(BadCredentialsException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<ObjectError> errors = Collections.singletonList(new ObjectError("Bad Credentials Exception", ex.getMessage()));
-        ApiError error = new ApiError(errors);
-        return internalExceptionHandler(ex, error, headers, status, request);
     }
     //DB exceptions handler
     public final ResponseEntity<ApiError> diveHandler(DataIntegrityViolationException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
